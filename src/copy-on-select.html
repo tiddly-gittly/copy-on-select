@@ -30,12 +30,14 @@
    * And display a notification
    */
   const copyTextModifier = (event) => {
-    event.preventDefault();
     const selection = document.getSelection();
     let copiedText = selection.toString();
     if (copiedText.endsWith('\n')) {
       copiedText = copiedText.substring(0, copiedText.length - 1);
     }
+    // if selection is empty, don't do anything
+    if (!copiedText) return;
+    event.preventDefault();
     event.clipboardData.setData('text/plain', copiedText);
 
     $tw.wiki.addTiddler({ title: '$:/state/notification/copy-on-select', text: `Copy\n\n${copiedText}` });
