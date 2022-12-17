@@ -62,6 +62,7 @@
 
     document.addEventListener('copy', copyTextModifier);
     /** $tw.utils.copyToClipboard(copiedText); can't copy image or html h1 format */
+    // does not work on safari https://stackoverflow.com/questions/71340178/combination-of-document-addeventlistener-and-document-execcommandcopy-does-n/71372287#71372287
     document.execCommand('copy');
     document.removeEventListener('copy', copyTextModifier);
   };
