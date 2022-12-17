@@ -1,20 +1,26 @@
-# Wikitext plugin template for TiddlyWiki5
+# TiddlyWiki5 Copy on Select
 
-This template will help you automatically package zipped multiple-file plugin for nodejs wiki, and single file JSON plugin for HTML wiki.
+Copy what you are selecting inside the wiki into the clipboard when holding mouse for 1 second
 
-## What need to change after apply the template
+## 动机 Motivation
 
-### Basic
+我已经习惯了用方便的[[Copy On Select|https://addons.mozilla.org/en-US/firefox/addon/copy-on-select]] Firefox 插件，现在到了 TiddlyWiki 里我经常还是以为选中了就复制了，然后黏贴到别的地方才发现其实并没有复制，很不习惯。
 
-1. update `title`, `author` and `description` in the [src/plugin.info](src/plugin.info).
-2. write your plugin tiddlers in the [src/](src/) directory.
-3. tid files just put in the src directory, they will be copy to the plugin automatically.
-   1. You can use folder to organize the files, like `src/filters/` to place the filter tiddlers, and that structure will be preserved in the nodejs multiple-file plugin
-   2. In the JSON plugin, the structure will strictly follow the tiddler title.
-4. update demo site tiddlers in the [demo/](demo/) directory.
-5. update this readme.md
+所以我自己重新写了一个适配 TiddlyWiki 的选中即复制脚本。
 
-### Examples
+I've gotten used to using the handy [[Copy On Select|https://addons.mozilla.org/en-US/firefox/addon/copy-on-select]] Firefox plugin, but now in TiddlyWiki I often still think I've copied it when I select it, and then I found out that I hadn't copied it until I pasted it somewhere else, which was very uncomfortable.
+
+So I rewrote my own copy-on-selection script for TiddlyWiki.
+
+## 用法 Usage
+
+选中编辑器、按钮等区域以外的任何文本，并保持按住鼠标一秒，就复制选中的内容。
+
+这个插件里的条件语句让它在编辑器等特殊区域内不会起作用，以免干扰「全选黏贴覆盖原有内容」等操作。
+
+Select any text outside the editor, buttons, etc., and hold the mouse down for a second to copy the selected content.
+
+The conditional statement in this plugin makes it not work in special areas like the editor, so as not to interfere with operations like "select all and paste overwrite".
 
 ## Development
 
