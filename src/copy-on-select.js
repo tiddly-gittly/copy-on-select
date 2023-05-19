@@ -1,4 +1,9 @@
-<script type="application/javascript">
+exports.name = 'copy-on-select';
+exports.platforms = ['browser'];
+exports.after = ['story'];
+exports.synchronous = true;
+
+exports.startup = function () {
   // we won't do copy on select on text editor, otherwise you can't select and override text in the editor or text input
   function checkIfElementIsEditor(element) {
     if (!element || !element.nodeName) return false;
@@ -15,14 +20,24 @@
   let copyOnSelectPreventCopy = false;
   /** mousedown and wait for 1s to copy */
   let copyTimeoutNotDone = true;
-  /** 1s */
-  const copyTimeout = 1;
+  /** 0.6s */
+  let copyTimeout = 0.6;
+  let showNotification = true;
+  const loadConfig = () => {
+    copyTimeout = Number($tw.wiki.getTiddlerText('$:/config/linonetwo/copy-on-select/CopyTimeout', '1')) || 0.6;
+    if (!isFinite(copyTimeout)) {
+      copyTimeout = 0.6;
+    }
+    showNotification = $tw.wiki.getTiddlerText('$:/config/linonetwo/copy-on-select/ShowNotificationOnCopy') === 'yes';
+  };
   let copyTimeoutHandler = 0;
+  let copyReadyTimeoutHandler = 0;
 
   const cleanUp = () => {
     copyTimeoutNotDone = true;
     copyOnSelectPreventCopy = false;
     clearTimeout(copyTimeoutHandler);
+    document.removeEventListener('mousemove', startCopyReadyCountDownCallback);
   };
 
   /**
@@ -40,13 +55,17 @@
     event.preventDefault();
     event.clipboardData.setData('text/plain', copiedText);
 
-    $tw.wiki.addTiddler({ title: '$:/state/notification/copy-on-select', text: `Copy\n\n${copiedText}` });
-    $tw.notifier.display('$:/state/notification/copy-on-select');
-    /** display copied text in notification */
-    // const truncateLength = 30;
-    // if (copiedText.length > truncateLength) {
-    //   copiedText = `${copiedText.substring(0, 30)} ...`;
-    // }
+    // DEBUG: console showNotification
+    console.log(`showNotification`, showNotification);
+    if (showNotification) {
+      $tw.wiki.addTiddler({ title: '$:/state/notification/copy-on-select', text: `Copy\n\n${copiedText}` });
+      $tw.notifier.display('$:/state/notification/copy-on-select');
+      /** display copied text in notification */
+      // const truncateLength = 30;
+      // if (copiedText.length > truncateLength) {
+      //   copiedText = `${copiedText.substring(0, 30)} ...`;
+      // }
+    }
   };
   /** Copy on select, copy document selection when mouse is down for a while */
   const onCopy = () => {
@@ -55,17 +74,26 @@
 
     const copyPrevented =
       copyTimeoutNotDone || copyOnSelectPreventCopy || !elementsUnderMouse?.length || Array.from(elementsUnderMouse).some(checkIfElementIsEditor);
-    cleanUp();
     if (copyPrevented) {
       return;
     }
 
+    // this will only work for 2 times. On 3 times, it will not get called, no way around this.
     document.addEventListener('copy', copyTextModifier);
     /** $tw.utils.copyToClipboard(copiedText); can't copy image or html h1 format */
     // does not work on safari https://stackoverflow.com/questions/71340178/combination-of-document-addeventlistener-and-document-execcommandcopy-does-n/71372287#71372287
     document.execCommand('copy');
     document.removeEventListener('copy', copyTextModifier);
   };
+
+  function startCopyReadyCountDown() {
+    // when mouse move, reset the timeout, so we won't copy while user still selecting
+    document.addEventListener('mousemove', startCopyReadyCountDownCallback);
+  }
+  function startCopyReadyCountDownCallback() {
+    clearTimeout(copyTimeoutHandler);
+    copyTimeoutHandler = setTimeout(onCopy, copyTimeout * 1000);
+  }
 
   document.addEventListener('mousedown', () => {
     const elementsUnderMouse = document.querySelectorAll(':hover');
@@ -76,11 +104,12 @@
       copyOnSelectPreventNextCopy = false;
       // if hold mouse till copyTimeout, means timeout done, then "not done" is false
       copyTimeoutNotDone = false;
-      copyTimeoutHandler = setTimeout(onCopy, copyTimeout * 1000);
+      loadConfig();
+      startCopyReadyCountDown();
     }
   });
 
   document.addEventListener('mouseup', () => {
     cleanUp();
   });
-</script>
+};

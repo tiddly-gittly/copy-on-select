@@ -1,0 +1,4 @@
+title: $:/config/linonetwo/copy-on-select/
+
+CopyTimeout: 0.6
+ShowNotificationOnCopy: yes
