@@ -1,0 +1,16 @@
+title: $:/plugins/linonetwo/copy-on-select/config
+tags: $:/tags/ControlPanel/SettingsTab
+caption: Plugin Setting
+
+These settings let you customise the behaviour of copy-on-select plugin.
+
+---
+
+!! Title
+
+Description
+
+;Show Notification
+:<$checkbox tiddler="$:/plugins/linonetwo/copy-on-select/configs/ShowNotificationOnCopy" field="text" checked="yes" unchecked=""> <$link to="$:/config/linonetwo/copy-on-select/ShowNotificationOnCopy">Show Notification On Copy</$link></$checkbox>
+;CopyTimeout
+:<$edit-text tiddler="$:/plugins/linonetwo/copy-on-select/configs/CopyTimeout" tabindex=-1 focus=false cancelPopups="yes" fileDrop=no tag="input" /> <$link to="$:/config/linonetwo/copy-on-select/CopyTimeout">When mouse stop moving for how many second, starts copy.</$link>

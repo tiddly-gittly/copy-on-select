@@ -1,5 +1,0 @@
-title: $:/plugins/linonetwo/copy-on-select/settings
-
-<$edit-text tag=input tiddler="$:/config/linonetwo/copy-on-select/CopyTimeout" field="text" /> <$link to="$:/config/linonetwo/copy-on-select/CopyTimeout">When mouse stop moving for how many second, starts copy.</$link> 
-
-<$checkbox tiddler="$:/config/linonetwo/copy-on-select/ShowNotificationOnCopy" field="text" checked="yes" unchecked="no" default="no"> <$link to="$:/config/linonetwo/copy-on-select/ShowNotificationOnCopy">Show Notification On Copy</$link> </$checkbox>
