@@ -1,0 +1,9 @@
+title: $:/plugins/linonetwo/copy-on-select/language/en-GB/
+
+Name: Copy on Select
+Description: Copy what you are selecting inside the wiki into the clipboard when holding mouse for 1 second
+Configs/Description: These settings let you customise the behaviour of Copy on Select plugin.
+Configs/ShowNotification/Caption: Show Notification
+Configs/ShowNotification/Description: Show Notification On Copy
+Configs/CopyTimeout: Copy Timeout
+Configs/CopyTimeout/Description: When mouse hold and stop moving for how many second, starts copy.

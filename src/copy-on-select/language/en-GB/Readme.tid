@@ -1,0 +1,17 @@
+title: $:/plugins/linonetwo/copy-on-select/language/en-GB/Readme
+
+\define lingo-base() $:/plugins/linonetwo/copy-on-select/language/
+
+<<lingo Description>>
+
+!! Motivation
+
+I've gotten used to using the handy [[Copy On Select|https://addons.mozilla.org/en-US/firefox/addon/copy-on-select]] Firefox plugin, but now in TiddlyWiki I often still think I've copied it when I select it, and then I found out that I hadn't copied it until I pasted it somewhere else, which was very uncomfortable.
+
+So I rewrote my own copy-on-selection script for TiddlyWiki.
+
+!! Usage
+
+Select any text outside the editor, buttons, etc., and hold the mouse down for a second to copy the selected content.
+
+The conditional statement in this plugin makes it not work in special areas like the editor, so as not to interfere with operations like "select all and paste overwrite".

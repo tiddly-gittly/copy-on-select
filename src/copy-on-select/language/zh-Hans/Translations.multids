@@ -1,0 +1,9 @@
+title: $:/plugins/linonetwo/copy-on-select/language/zh-Hans/
+
+Name: 选中就复制
+Description: 按住鼠标 1 秒钟，将 Wiki 中选择的内容复制到剪贴板中。
+Configs/Description: 通过这些设置，您可以自定义「选中就复制」插件的行为。
+Configs/ShowNotification/Caption: 显示通知
+Configs/ShowNotification/Description: 复制成功时弹消息
+Configs/CopyTimeout: 复制超时
+Configs/CopyTimeout/Description: 当鼠标按住并停止移动多少秒后，开始复制。
